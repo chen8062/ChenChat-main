@@ -11,6 +11,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 public enum ChatGPTModelEnum {
+    // ==================== DeepSeek 模型 ====================
+    DEEPSEEK_V4_PRO("deepseek-v4-pro", 3, 40000),
+    DEEPSEEK_CHAT("deepseek-chat", 3, 40000),
+    // ==================== 阿里云 Qwen 模型 ====================
+    QWEN_MAX("qwen-max", 3, 40000),
+    QWEN_PLUS("qwen-plus", 3, 40000),
+    QWEN_TURBO("qwen-turbo", 3, 40000),
+    // ==================== OpenAI 模型（保留兼容） ====================
     // chat
     GPT_35_TURBO("gpt-3.5-turbo", 3, 40000),
     GPT_35_TURBO_0301("gpt-3.5-turbo-0301", 3, 40000),

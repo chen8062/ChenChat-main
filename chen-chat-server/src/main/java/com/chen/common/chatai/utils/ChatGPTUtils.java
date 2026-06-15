@@ -22,7 +22,9 @@ public class ChatGPTUtils {
 
     private static final Encoding encoding = Encodings.newDefaultEncodingRegistry().getEncoding(EncodingType.CL100K_BASE);
 
-    private static final String URL = "https://api.openai.com/v1/chat/completions";
+    private static final String DEFAULT_URL = "https://api.openai.com/v1/chat/completions";
+
+    private String apiUrl;
 
     private String model = "gpt-3.5-turbo";
 
@@ -97,7 +99,7 @@ public class ChatGPTUtils {
                                     .get(0)
                                     .with("delta")
                                     .findValue("content"))
-                            .map(JsonNode::asText)
+                            .map(node -> node.isNull() ? null : node.asText())
                             .orElse(null)
                     ).filter(Objects::nonNull).collect(Collectors.joining());
         } catch (Exception e) {
@@ -146,9 +148,28 @@ public class ChatGPTUtils {
         return this;
     }
 
+    public ChatGPTUtils apiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
+        return this;
+    }
+
     public ChatGPTUtils proxyUrl(String proxyUrl) {
         this.proxyUrl = proxyUrl;
         return this;
+    }
+
+    /**
+     * 获取实际请求 URL
+     * 优先级: proxyUrl > apiUrl > DEFAULT_URL
+     */
+    private String getRequestUrl() {
+        if (StringUtils.isNotBlank(proxyUrl)) {
+            return proxyUrl;
+        }
+        if (StringUtils.isNotBlank(apiUrl)) {
+            return apiUrl;
+        }
+        return DEFAULT_URL;
     }
 
     public Response send() throws IOException {
@@ -170,7 +191,7 @@ public class ChatGPTUtils {
 
         log.info("paramMap >>> " + JsonUtils.toStr(paramMap));
         Request request = new Request.Builder()
-                .url(StringUtils.isNotBlank(proxyUrl) ? proxyUrl : URL)
+                .url(getRequestUrl())
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization", headers.get("Authorization"))
                 .post(RequestBody.create(MediaType.parse("application/json"), JsonUtils.toStr(paramMap)))

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!--日志路径 -->
-    <property name="LOG_PATH" value="/data/logs/chen-chat-server"/>
-    <property name="LOG_FILE" value="chen-chat-server"/>
+    <property name="LOG_PATH" value="/data/logs/chenchat-server"/>
+    <property name="LOG_FILE" value="chenchat-server"/>
     <!-- 格式化-->
     <property name="CONSOLE_LOG_PATTERN"
               value="|%level|%d{yyyy-MM-dd HH:mm:ss.SSS}|%thread|%X{tid}|uid=%X{uid}|%msg|%X{callChain}%n"/>

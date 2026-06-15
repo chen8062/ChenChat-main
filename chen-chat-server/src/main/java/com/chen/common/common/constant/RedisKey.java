@@ -57,7 +57,7 @@ public class RedisKey {
     public static final String USER_SUMMARY_STRING = "userSummary:uid_%d";
 
     /**
-     * 用户GPT聊天次数
+     * 用户AI聊天次数（DeepSeek）
      */
     public static final String USER_CHAT_NUM = "useChatGPTNum:uid_%d";
 
@@ -70,7 +70,7 @@ public class RedisKey {
 
 
     /**
-     * 用户上次使用GLM使用时间
+     * 用户上次使用AI时间（Qwen限流）
      */
     public static final String USER_GLM2_TIME_LAST = "userGLM2UseTime:uid_%d";
 

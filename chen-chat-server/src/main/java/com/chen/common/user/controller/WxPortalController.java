@@ -58,7 +58,7 @@ public class WxPortalController {
             log.error("callBack error", e);
         }
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://139.199.223.224:8080");
+        redirectView.setUrl("http://127.0.0.1:8080");
         return redirectView;
     }
 
